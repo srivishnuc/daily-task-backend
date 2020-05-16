@@ -18,7 +18,7 @@ const executeQuery = (query, params) => {
                         reject({ status: 'failed', msg: 'error executing query' })
                     }
                     else {
-                        resolve({ status: 'sucess', msg: 'query executed sucessfully', user: [{ name: params[0], email: params[1], password: params[2] }], rows: result.rows })
+                        resolve({ status: 'sucess', msg: 'query executed sucessfully', rows: result.rows })
                     }
                 })
             }

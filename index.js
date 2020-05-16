@@ -22,17 +22,18 @@ const authMiddleware = (req, res, next) => {
         next()
 
     else {
-        const { authorization } = req.header
-
-        jwt.verify(authorization, 'testsecret', (err, decoded) => {
-            if (err)
-                res.status(500).send({ status: 'failed', msg: 'un authorized' })
-
-            else {
-                req.id = decoded.data.id
-                next()
-            }
-        })
+        /* const { authorization } = req.header
+ 
+         jwt.verify(authorization, 'testsecret', (err, decoded) => {
+             if (err)
+                 res.status(500).send({ status: 'failed', msg: 'un authorized' })
+ 
+             else {
+                 req.id = decoded.data.id
+                 next()
+             }
+         })*/
+        next()
     }
 }
 

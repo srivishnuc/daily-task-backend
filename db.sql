@@ -20,6 +20,12 @@ create table department(
 create table roles (
 id serial,
 des_no numeric primary key,
-dept_no numeric,
 designation varchar(100)
 )
+
+
+
+
+alter table department add foreign key(dept_head) references employees(empno)
+alter table roles add foreign key(dept_no) references department(dept_no)
+alter table employees add foreign key(dept_no) references department(dept_no) , add foreign key(des_no) references roles(des_no)

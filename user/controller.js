@@ -1,4 +1,4 @@
-var { registerModel, getUserByEmailModal } = require('./model.js')
+var { registerModel, getUserByEmailModal, regDataModel } = require('./model.js')
 var { jwtToken } = require('../db/connection')
 const bcrypt = require('bcrypt');
 
@@ -37,5 +37,10 @@ const loginUser = async (req, res) => {
 }
 
 
+const regData = (req, res) => {
+    regDataModel(req, res)
+}
 
-module.exports = { registerUser, loginUser } 
+
+
+module.exports = { registerUser, loginUser, regData } 

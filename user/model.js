@@ -12,6 +12,19 @@ const registerModel = (req, res, givenPassword) => {
 
 }
 
+const regDataModel = (req, res) => {
+    executeQuery(`select  json_agg(json_build_object('dept_no',dept_no , 'dept_name' , dept_name) ) as department from department`, null)
+        .then(result1 => {
+            executeQuery(`select json_agg(json_build_object('des_no',des_no , 'designation' , designation) ) as roles  from roles`, null)
+                .then(result2 => res.status(200).send({ status: result2.status, msg: result2.msg, dept: result1.rows, roles: result2.rows }))
+                .catch(err => res.status(400).send(err))
+        })
+        .catch(err => res.status(400).send(err))
+
+
+
+}
+
 
 
 const getUserByEmailModal = (email) => {
@@ -22,4 +35,4 @@ const getUserByEmailModal = (email) => {
     })
 }
 
-module.exports = { registerModel, getUserByEmailModal }
+module.exports = { registerModel, getUserByEmailModal, regDataModel }
