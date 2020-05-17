@@ -1,13 +1,9 @@
 var { executeQuery, jwtToken } = require('../db/connection')
 
 const registerModel = (req, res, givenPassword) => {
-    const { name, email, password } = req.body
-    executeQuery('insert into users(name,email,password,created_time ) values ($1,$2,$3,now())', [name, email, password])
-        .then(result => {
-            jwtToken(givenPassword, result.user[0])
-                .then(result => res.status(200).send(result))
-                .catch(error => res.status(400).send(error))
-        })
+    const { name, empno, password, dept, des } = req.body
+    executeQuery('insert into employees(name,empno,password,dept_no,des_no,created_time ) values ($1,$2,$3,$4,$5,now())', [name, empno, password, dept, des])
+        .then(result => res.status(200).send(result))
         .catch(err => res.status(500).send(err))
 
 }
