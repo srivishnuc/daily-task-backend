@@ -1,17 +1,17 @@
-var { registerModel, getUserByEmailModal, regDataModel } = require('./model.js')
+var { registerModel, getUserByEmpnoModal, regDataModel } = require('./model.js')
 var { jwtToken } = require('../db/connection')
 const bcrypt = require('bcrypt');
 
 const registerUser = async (req, res) => {
-    const user = await getUserByEmailModal(req.body.email)
+    console.log(req.body)
+    const user = await getUserByEmpnoModal(req.body.empno)
     if (user.length) {
         res.status(401).send({ status: 'failed', msg: 'user account already exists' })
     }
     else {
         const salt = bcrypt.genSaltSync(Number(process.env.SALT_ROUNDS));
-        givenPassword = req.body.password;
         req.body.password = bcrypt.hashSync(req.body.password, salt);
-        registerModel(req, res, givenPassword)
+        registerModel(req, res)
 
 
     }
@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     // loginUserModel(req, res)getUserByEmail
-    const user = await getUserByEmailModal(req.body.email);
+    const user = await getUserByEmpnoModal(req.body.empno);
     const { password } = req.body;
 
     if (user.length) {
