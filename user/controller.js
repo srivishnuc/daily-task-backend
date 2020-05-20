@@ -3,7 +3,6 @@ var { jwtToken } = require('../db/connection')
 const bcrypt = require('bcrypt');
 
 const registerUser = async (req, res) => {
-    console.log(req.body)
     const user = await getUserByEmpnoModal(req.body.empno)
     if (user.length) {
         res.status(401).send({ status: 'failed', msg: 'user account already exists' })

@@ -15,7 +15,7 @@ const executeQuery = (query, params) => {
                 client.query(query, params, (err, result) => {
                     release()
                     if (err) {
-                        reject({ status: 'failed', msg: 'error executing query' })
+                        reject({ status: 'failed', msg: 'error executing query', err })
                     }
                     else {
                         resolve({ status: 'sucess', msg: 'query executed sucessfully', rows: result.rows })

@@ -15,11 +15,15 @@ const app = express()
 app.use(cors());
 
 const authMiddleware = (req, res, next) => {
+    console.log(req.body)
     let isLogin = req.method == 'PUT' && (req.url == '/user/login/' || req.url == '/user/login')
     let isSignup = req.method == 'POST' && (req.url == '/user' || req.url == '/user/')
 
-    if (isLogin || isSignup)
+    if (isLogin || isSignup) {
+
         next()
+
+    }
 
     else {
         /* const { authorization } = req.header
@@ -38,7 +42,7 @@ const authMiddleware = (req, res, next) => {
 }
 
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use(authMiddleware)
