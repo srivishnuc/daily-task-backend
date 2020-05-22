@@ -15,7 +15,7 @@ const app = express()
 app.use(cors());
 
 const authMiddleware = (req, res, next) => {
-    console.log(req.body)
+    //console.log(req.body)
     let isLogin = req.method == 'PUT' && (req.url == '/user/login/' || req.url == '/user/login')
     let isSignup = req.method == 'POST' && (req.url == '/user' || req.url == '/user/')
 
@@ -26,6 +26,7 @@ const authMiddleware = (req, res, next) => {
     }
 
     else {
+        console.log('inside ')
         /* const { authorization } = req.header
  
          jwt.verify(authorization, 'testsecret', (err, decoded) => {

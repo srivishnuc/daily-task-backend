@@ -20,11 +20,11 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     // loginUserModel(req, res)getUserByEmail
-    const user = await getUserByEmpnoModal(req.body.empno);
+    const user = await getUserByEmpnoModal(req.body.empno).then(res => res).catch(err => err);
     const { password } = req.body;
 
     if (user.length) {
-
+        console.log(user[0])
         jwtToken(password, user[0])
             .then(result => res.status(200).send(result))
             .catch(error => res.status(400).send(error))
