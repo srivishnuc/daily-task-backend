@@ -8,6 +8,7 @@ require('dotenv').config()
 
 
 let userRouter = require('./user/router')
+let queryRouter = require('./query/router')
 
 
 const app = express()
@@ -49,5 +50,6 @@ app.use(bodyParser.json())
 app.use(authMiddleware)
 
 app.use('/user', userRouter)
+app.use('/query', queryRouter)
 
 app.listen(process.env.PORT, () => console.log(`Listening at port ${process.env.PORT}`))
