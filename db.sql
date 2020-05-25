@@ -24,8 +24,13 @@ des_no numeric primary key,
 designation varchar(100)
 )
 
+create table responsibility(
+id  serial,
+empno numeric,
+emp_res varchar(50) 
+)
 
-
+alter table responsibility add foreign key(empno) references employees(empno)
 
 alter table department add foreign key(dept_head) references employees(empno)
 alter table employees add foreign key(dept_no) references department(dept_no) , add foreign key(des_no) references roles(des_no)
