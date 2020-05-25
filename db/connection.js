@@ -9,7 +9,7 @@ const executeQuery = (query, params) => {
     return new Promise((resolve, reject) => {
         pool.connect((err, client, release) => {
             if (err) {
-                reject({ status: 'failed', msg: 'error connecting..' })
+                reject({ status: 'failed', msg: 'error connecting..',err })
             }
             else {
                 client.query(query, params, (err, result) => {
