@@ -27,24 +27,37 @@ designation varchar(100)
 create table responsibility(
 id  serial,
 empno numeric,
-emp_res varchar(50) 
+empres varchar(50) 
 )
+
+
+create table tasks 
+(id serial, 
+assignto numeric ,
+assignby numeric,
+queryreg varchar(50),
+querydetail varchar(3000),
+status varchar(15),
+createdtime timestamp)
 
 alter table responsibility add foreign key(empno) references employees(empno)
 
 alter table department add foreign key(dept_head) references employees(empno)
 alter table employees add foreign key(dept_no) references department(dept_no) , add foreign key(des_no) references roles(des_no)
 
+alter table tasks add foreign key(assignby) references employees(empno)
+
+alter table tasks add foreign key(assignto) references employees(empno)
 
 
 --insert
 
-insert into roles (des_no , designation) values (10, 'Junior Supervisor - Trainee')
-insert into roles (des_no , designation) values (20, 'Junior Supervisor')
-insert into roles (des_no , designation) values (30, 'Senior')
-insert into roles (des_no , designation) values (40, 'Junior Executive')
-insert into roles (des_no , designation) values (50, 'Executive')
-insert into roles (des_no , designation) values (60, 'Manager')
+	insert into roles (des_no , designation) values (10, 'Junior Supervisor - Trainee')
+	insert into roles (des_no , designation) values (20, 'Junior Supervisor')
+	insert into roles (des_no , designation) values (30, 'Senior')
+	insert into roles (des_no , designation) values (40, 'Junior Executive')
+	insert into roles (des_no , designation) values (50, 'Executive')
+	insert into roles (des_no , designation) values (60, 'Manager')
 
 
 --
