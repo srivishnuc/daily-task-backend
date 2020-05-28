@@ -24,13 +24,12 @@ const loginUser = async (req, res) => {
     const { password } = req.body;
 
     if (user.length) {
-        console.log(user[0])
         jwtToken(password, user[0])
             .then(result => res.status(200).send(result))
             .catch(error => res.status(400).send(error))
 
     } else {
-        res.status(401).send({ status: 'failed', msg: 'Not a valid email' })
+        res.status(401).send({ status: 'failed', msg: 'Not a valid userid' })
     }
 
 }

@@ -25,7 +25,7 @@ formDataModel = (req, res) => {
 submitQueryModel = (req, res) => {
     const { assignto, query, queryDetails } = req.body
     executeQuery(`insert into tasks(assignto,queryreg,querydetail,status,createdtime,assignby) 
-    values($1,$2,$3,'NEW',now(),2302)`, [assignto, query, queryDetails])
+    values($1,$2,$3,'NEW',now(),$4)`, [assignto, query, queryDetails, req.id])
         .then(result => res.status(200).send(result))
         .catch(error => res.status(400).send(error))
 }

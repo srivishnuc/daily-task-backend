@@ -31,14 +31,11 @@ const executeQuery = (query, params) => {
 
 const jwtToken = (givenPassword, user) => {
     return new Promise((resolve, reject) => {
-        console.log(givenPassword)
         let isPassMatch = bcrypt.compareSync(givenPassword, user.password);
-        console.log(isPassMatch)
         if (isPassMatch) {
             let token = jwt.sign({
-                data: { id: user.id, email: user.email },
+                data: { id: user.empno, name: user.name, dept: user.dept_no, des: user.des_no, report_to: user.report_to },
             }, 'testsecret', { expiresIn: '24h' });
-            console.log(token)
             resolve({ status: 'success', msg: 'successfull', data: token })
         } else {
             reject({ status: 'failed', msg: 'Email or Password incorrect' })
