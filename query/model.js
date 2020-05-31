@@ -13,9 +13,10 @@ formDataModel = (req, res) => {
     from employees emp , roles rl , department dpt 
     where emp.dept_no = dpt.dept_no
     and emp.des_no = rl.des_no
+    and emp.empno <> $1
 	union all
 	select json_agg(json_build_object('resid',res.id,'empno',res.empno ,'responsibility',res.empres)) as responsibility								   
-	from responsibility res`, [])
+	from responsibility res`, [req.id])
         .then(result => {
             res.status(200).send(result)
         })
@@ -31,4 +32,9 @@ submitQueryModel = (req, res) => {
 }
 
 
-module.exports = { formDataModel, submitQueryModel }
+getQueryModel = (req, res) => {
+    executeQuery(`select  json_agg(json_build_object('id',id , 'assignby' ,assignby ,'query',querydetail,'status',status , 'createdtime',createdtime))
+from tasks where assignto = $1`, [req.id])
+}
+
+module.exports = { formDataModel, submitQueryModel, getQueryModel }
