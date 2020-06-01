@@ -33,8 +33,17 @@ submitQueryModel = (req, res) => {
 
 
 getQueryModel = (req, res) => {
-    executeQuery(`select  json_agg(json_build_object('id',id , 'assignby' ,assignby ,'query',querydetail,'status',status , 'createdtime',createdtime))
-from tasks where assignto = $1`, [req.id])
+    executeQuery(`select  json_agg(json_build_object('id',tk.id , 'assignby' ,emp.name,'taskname',queryreg ,'query',querydetail,'status',status , 'createdtime',createdtime)) as  by
+    from tasks tk , employees emp
+    where assignto = $1
+    and tk.assignby = emp.empno
+    union all
+    select  json_agg(json_build_object('id',tk.id , 'assignto' ,emp.name , 'taskname',queryreg ,'query',querydetail,'status',status , 'createdtime',createdtime)) as  to
+    from tasks  tk, employees emp
+    where assignby = $1
+    and tk.assignto = emp.empno`, [req.id])
+        .then(result => res.status(200).send(result))
+        .catch(err => res.status(400).send(err))
 }
 
 module.exports = { formDataModel, submitQueryModel, getQueryModel }
