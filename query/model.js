@@ -33,12 +33,12 @@ submitQueryModel = (req, res) => {
 
 
 getQueryModel = (req, res) => {
-    executeQuery(`select  json_agg(json_build_object('id',tk.id , 'assignby' ,emp.name,'taskname',queryreg ,'query',querydetail,'status',status , 'createdtime',createdtime)) as  by
+    executeQuery(`select  json_agg(json_build_object('id',tk.id , 'assignby' ,emp.name,'taskname',queryreg ,'query',querydetail,'status',status , 'createdtime',created_time)) as  by
     from tasks tk , employees emp
     where assignto = $1
     and tk.assignby = emp.empno
     union all
-    select  json_agg(json_build_object('id',tk.id , 'assignto' ,emp.name , 'taskname',queryreg ,'query',querydetail,'status',status , 'createdtime',createdtime)) as  to
+    select  json_agg(json_build_object('id',tk.id , 'assignto' ,emp.name , 'taskname',queryreg ,'query',querydetail,'status',status , 'createdtime',created_time)) as  to
     from tasks  tk, employees emp
     where assignby = $1
     and tk.assignto = emp.empno`, [req.id])

@@ -38,7 +38,20 @@ assignby numeric,
 queryreg varchar(50),
 querydetail varchar(3000),
 status varchar(15),
-createdtime timestamp)
+wip char,
+wip_remark varchar(1000),
+closed char,
+closed_remark varchar(1000))
+
+
+create table tasklog
+(
+id numeric ,
+status varchar(10),
+createdtime timestamp
+
+)
+
 
 alter table responsibility add foreign key(empno) references employees(empno)
 
@@ -49,6 +62,7 @@ alter table tasks add foreign key(assignby) references employees(empno)
 
 alter table tasks add foreign key(assignto) references employees(empno)
 
+alter table tasklog add foreign key(id) references tasks(id)
 
 --insert
 
