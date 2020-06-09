@@ -46,4 +46,15 @@ getQueryModel = (req, res) => {
         .catch(err => res.status(400).send(err))
 }
 
-module.exports = { formDataModel, submitQueryModel, getQueryModel }
+insertLogModel = (req, res) => {
+    const { id, status, remark } = req.body
+    executeQuery(`update tasks set status = $2 where id = $1 `, [id, status]).then(
+        executeQuery(`insert into tasklog(id,status,remark,createdtime) values($1,$2,$3,now())`, [id, status, remark])
+            .then(result => res.status(200).send(result))
+            .catch(error => res.status(400).send(error))
+    ).catch(error => res.status(400).send(error))
+}
+
+
+
+module.exports = { formDataModel, submitQueryModel, getQueryModel, insertLogModel }

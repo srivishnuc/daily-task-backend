@@ -1,4 +1,4 @@
-var { formDataModel, submitQueryModel, getQueryModel } = require('./model.js')
+var { formDataModel, submitQueryModel, getQueryModel, insertLogModel } = require('./model.js')
 
 const getFormData = (req, res) => {
     formDataModel(req, res)
@@ -12,4 +12,9 @@ const getQueryList = (req, res) => {
     getQueryModel(req, res)
 }
 
-module.exports = { getFormData, submitQuery, getQueryList } 
+
+const insertLog = (req, res) => {
+    insertLogModel(req, res)
+}
+
+module.exports = { getFormData, submitQuery, getQueryList, insertLog } 

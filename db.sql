@@ -38,18 +38,15 @@ assignby numeric,
 queryreg varchar(50),
 querydetail varchar(3000),
 status varchar(15),
-wip char,
-wip_remark varchar(1000),
-closed char,
-closed_remark varchar(1000))
+)
 
 
 create table tasklog
 (
 id numeric ,
 status varchar(10),
+remark varchar(3000)
 createdtime timestamp
-
 )
 
 
