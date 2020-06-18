@@ -55,6 +55,16 @@ insertLogModel = (req, res) => {
     ).catch(error => res.status(400).send(error))
 }
 
+getCountModel = (req, res) => {
+
+    executeQuery(`select  status,count(*) 
+    from tasks
+    where assignto = $1
+    group by status`, [req.id])
+        .then(result => res.status(200).send(result))
+        .catch(err => res.status(400).send(err))
+
+}
 
 
-module.exports = { formDataModel, submitQueryModel, getQueryModel, insertLogModel }
+module.exports = { formDataModel, submitQueryModel, getQueryModel, insertLogModel, getCountModel }
