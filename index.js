@@ -1,6 +1,7 @@
 const express = require('express')
 var bodyParser = require('body-parser')
 var cors = require('cors')
+var port = process.env.PORT || 8001
 
 const jwt = require('jsonwebtoken')
 
@@ -49,4 +50,4 @@ app.use(authMiddleware)
 app.use('/user', userRouter)
 app.use('/query', queryRouter)
 
-app.listen(process.env.PORT, () => console.log(`Listening at port ${process.env.PORT}`))
+app.listen(port, () => console.log(`Listening at port ${port}`))

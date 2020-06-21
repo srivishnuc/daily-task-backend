@@ -25,8 +25,8 @@ formDataModel = (req, res) => {
 
 submitQueryModel = (req, res) => {
     const { assignto, query, queryDetails } = req.body
-    executeQuery(`insert into tasks(assignto,queryreg,querydetail,status,createdtime,assignby) 
-    values($1,$2,$3,'NEW',now(),$4)`, [assignto, query, queryDetails, req.id])
+    executeQuery(`insert into tasks(assignto,queryreg,querydetail,status,assignby) 
+    values($1,$2,$3,'NEW',$4)`, [assignto, query, queryDetails, req.id])
         .then(result => res.status(200).send(result))
         .catch(error => res.status(400).send(error))
 }
@@ -57,10 +57,15 @@ insertLogModel = (req, res) => {
 
 getCountModel = (req, res) => {
 
-    executeQuery(`select  status,count(*) 
-    from tasks
-    where assignto = $1
-    group by status`, [req.id])
+    executeQuery(`select json_build_object('status' ,'Completed','count',sum(completed)) completed,json_build_object('status' ,'New','count',sum(new)) "new",
+    json_build_object('status' ,'In-Process','count',sum(inprocess)) inprocess from 
+    (select  
+     case when status = 'COMPLETED' then count(*) else 0 end completed ,
+     case when status = 'NEW' then count(*) else 0 end  "new" ,
+     case when status = 'IN-PROCESS' then count(*) else 0 end  inprocess 
+     from tasks
+     where assignto = $1
+     group by status)tc`, [req.id])
         .then(result => res.status(200).send(result))
         .catch(err => res.status(400).send(err))
 
